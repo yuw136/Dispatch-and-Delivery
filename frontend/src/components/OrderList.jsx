@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ChevronDown,
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
+import Tracking from "./Tracking";
+
 
 //模拟数据
 const mockOrders = [
@@ -75,9 +77,15 @@ const mockOrders = [
   },
 ];
 
+
+
 function OrderCard({ order }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTrackingOpen, setIsTrackingOpen] = useState(false);
+
+  useEffect(() => {
+   
+  }, [isTrackingOpen])
 
   // 根据派送时间计算订单状态
   const getDeliveryStatus = () => {
@@ -227,16 +235,13 @@ function OrderCard({ order }) {
 
       {/* Tracking弹窗 */}
       <Dialog open={isTrackingOpen} onOpenChange={setIsTrackingOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-auto">
+        <DialogContent className="w-[95vw] sm:max-w-xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl h-[85vh] overflow-auto">
           <DialogHeader>
             <DialogTitle>Track Order - {order.orderNumber}</DialogTitle>
           </DialogHeader>
           <div className="py-6">
-            {/* Tracking view placeholder - to be implemented */}
-            <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-              <p className="text-gray-500">
-                Tracking view will be implemented here
-              </p>
+            <div className="flex items-center justify-center h-[65vh] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+              <Tracking order = {order}/>
             </div>
           </div>
         </DialogContent>
@@ -259,7 +264,7 @@ export function OrderList() {
         <Button
           onClick={handleNewOrder}
           className="px-4 py-2 flex items-center gap-2"
-          variant = "default"
+          variant="default"
         >
           <Plus className="w-5 h-5" />
           New Order
