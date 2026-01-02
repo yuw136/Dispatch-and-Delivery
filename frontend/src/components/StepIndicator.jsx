@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 
 export function StepIndicator({ currentStep }) {
   const steps = [
-    { id: 1, name: "Shipping Details" },
+    { id: 1, name: "Order Details" },
     { id: 2, name: "Delivery Method" },
     { id: 3, name: "Confirmation" },
   ];

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { StepIndicator } from "./StepIndicator";
+import { AddressAutocomplete } from "./AddressAutocomplete";
 
 export function ShippingForm() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export function ShippingForm() {
     }
 
     // 传递数据给 DeliveryOptions
-    // 注意：这里我们还没转成 description 字符串，把 raw data 传过去处理
+    // 这里还没转成 description 字符串，把 raw data 传过去处理
     navigate("/dashboard/delivery-options", {
       state: {
         from_address: fromAddress,
@@ -76,37 +77,43 @@ export function ShippingForm() {
         >
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h1 className="text-2xl font-bold">Create Shipment</h1>
+        <h1 className="text-2xl font-bold">Create Order</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Form */}
+        {/* --- 左侧主要表单区域 (2/3) --- */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-            <h2 className="font-semibold text-lg mb-4 flex items-center gap-2">
-              <MapPin className="text-blue-600" /> Locations
+          {/* Section 1: Addresses  */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-bold shadow-md">
+                1
+              </div>
+              Locations
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">
                   Pickup Address (From)
                 </label>
-                <input
-                  className="w-full mt-1 p-3 border rounded-lg bg-gray-50 focus:bg-white focus:ring-2 ring-black outline-none transition"
+                {/* 替换原生 input 为 AddressAutocomplete */}
+                <AddressAutocomplete
                   value={fromAddress}
-                  onChange={(e) => setFromAddress(e.target.value)}
+                  onChange={setFromAddress}
                   placeholder="e.g. 123 Library St"
+                  icon={MapPin}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">
                   Delivery Address (To)
                 </label>
-                <input
-                  className="w-full mt-1 p-3 border rounded-lg bg-gray-50 focus:bg-white focus:ring-2 ring-black outline-none transition"
+                {/* 替换原生 input 为 AddressAutocomplete */}
+                <AddressAutocomplete
                   value={toAddress}
-                  onChange={(e) => setToAddress(e.target.value)}
+                  onChange={setToAddress}
                   placeholder="e.g. Dormitory A"
+                  icon={MapPin}
                 />
               </div>
             </div>
