@@ -222,21 +222,21 @@ export default function Tracking(props) {
         console.log("Mock tracking - Position updated:", computedPosition);
       }
 
-      const res = await axios.get(
-        `${BASE_URL}/dashboard/orders/track?id=${id}`,
-        {
-          headers: {
-            // Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
-            Accept: "application/json",
-          },
-          signal: abortControllerRef.current.signal,
-          timeout: isInitialFetch ? 30000 : 10000,
-        }
-      );
-      console.log("check response:", res.data);
+      // const res = await axios.get(
+      //   `${BASE_URL}/dashboard/orders/track?id=${id}`,
+      //   {
+      //     headers: {
+      //       // Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+      //       Accept: "application/json",
+      //     },
+      //     signal: abortControllerRef.current.signal,
+      //     timeout: isInitialFetch ? 30000 : 10000,
+      //   }
+      // );
+      // console.log("check response:", res.data);
 
-      setRoute(res.data.route);
-      setPosition(res.data.position);
+      // setRoute(res.data.route);
+      // setPosition(res.data.position);
     } catch (err) {
       if (err.name === "CanceledError" || err.code === "ERR_CANCELED") {
         console.log("position update request aborted");
