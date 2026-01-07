@@ -1,9 +1,7 @@
 package com.flagcamp.dispatchanddelivery.repository;
 
 import com.flagcamp.dispatchanddelivery.entity.HubEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.ListCrudRepository;
 
-@Repository
-public interface HubRepository extends JpaRepository<HubEntity, String> {
+public interface HubRepository extends ListCrudRepository<HubEntity, Long> {
 }
