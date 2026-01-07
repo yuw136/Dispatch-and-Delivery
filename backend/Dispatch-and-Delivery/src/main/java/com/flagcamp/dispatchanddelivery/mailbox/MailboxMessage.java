@@ -20,9 +20,17 @@ public class MailboxMessage {
         dto.id = message.getId();
         dto.subject = message.getSubject();
         dto.content = message.getContent();
-        dto.type = message.getType().name();
+        dto.type = message.getType() == null ? null : message.getType().name();
         dto.orderId = message.getOrderId();
-        dto.actionRequired = message.getActionRequired() == null ? null : message.getActionRequired().name();
+        if (message.getActionRequired() == null) {
+            dto.actionRequired = null;
+        } else {
+            dto.actionRequired = switch (message.getActionRequired()) {
+                case PICKUP -> "pickup";
+                case DELIVERY -> "delivery";
+                default -> null; // NONE -> null
+            };
+        }
         dto.time = message.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant();
         dto.read = message.isRead();
         return dto;

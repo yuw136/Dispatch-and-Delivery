@@ -19,22 +19,12 @@ public class MessageController {
 
 
     @GetMapping
-    public ResponseEntity<?> getMailbox(
-            @RequestParam(required = false) Long userId
-    ) {
-        if (userId == null) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", "userId is required"));
-        }
-
+    public ResponseEntity<List<MailboxMessage>> getMailbox(@RequestParam Long userId) {
+        // ✅ 直接返回数组（前端立刻能 map/normalize）
         List<MailboxMessage> mailbox = messageService.getMailbox(userId);
-        return ResponseEntity.ok(
-                Map.of(
-                        "success", true,
-                        "data", mailbox
-                )
-        );
+        return ResponseEntity.ok(mailbox);
     }
+
 
 
     @PostMapping("/confirm")
