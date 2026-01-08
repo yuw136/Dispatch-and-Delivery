@@ -1,7 +1,7 @@
 package com.flagcamp.dispatchanddelivery.controller;
 
-import com.flagcamp.dispatchanddelivery.mailbox.ConfirmRequest;
-import com.flagcamp.dispatchanddelivery.mailbox.MailboxMessage;
+import com.flagcamp.dispatchanddelivery.model.dto.MessageDTO;
+import com.flagcamp.dispatchanddelivery.model.request.ConfirmRequest;
 import com.flagcamp.dispatchanddelivery.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +19,9 @@ public class MessageController {
 
 
     @GetMapping
-    public ResponseEntity<List<MailboxMessage>> getMailbox(@RequestParam Long userId) {
-        // ✅ 直接返回数组（前端立刻能 map/normalize）
-        List<MailboxMessage> mailbox = messageService.getMailbox(userId);
+    public ResponseEntity<List<MessageDTO>> getMailbox(@RequestParam String userId) {
+        //直接返回数组（前端立刻能 map/normalize）
+        List<MessageDTO> mailbox = messageService.getMailbox(userId);
         return ResponseEntity.ok(mailbox);
     }
 
@@ -31,7 +31,7 @@ public class MessageController {
     public ResponseEntity<?> confirmMailbox(
             @RequestBody ConfirmRequest req
     ) {
-        if (req.messageId == 0) {
+        if (req.messageId == null || req.messageId.isEmpty()) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", "messageId is required"));
         }

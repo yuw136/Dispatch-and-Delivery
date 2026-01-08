@@ -1,4 +1,4 @@
-package com.flagcamp.dispatchanddelivery.model;
+package com.flagcamp.dispatchanddelivery.model.response;
 
 public class PositionResponse {
     public String orderId;

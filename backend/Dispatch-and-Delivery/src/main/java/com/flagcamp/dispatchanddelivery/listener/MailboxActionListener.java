@@ -1,9 +1,9 @@
-package com.flagcamp.dispatchanddelivery.mailbox;
+package com.flagcamp.dispatchanddelivery.listener;
 
 import com.flagcamp.dispatchanddelivery.model.event.MailboxActionConfirmedEvent;
 import com.flagcamp.dispatchanddelivery.model.event.RobotArrivedEvent;
 import com.flagcamp.dispatchanddelivery.entity.OrderEntity;
-import com.flagcamp.dispatchanddelivery.model.ActionRequired;
+import com.flagcamp.dispatchanddelivery.model.enums.ActionRequired;
 import com.flagcamp.dispatchanddelivery.service.MessageService;
 import com.flagcamp.dispatchanddelivery.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +49,9 @@ public class MailboxActionListener {
             }
 
             case DELIVERY -> {
+                //告诉orderService改变订单状态，唤醒机器人
                 orderService.confirmDelivery(orderId, userId);
+                //推送信息
                 messageService.notifyDeliveryConfirmed(userId, orderId);
             }
 

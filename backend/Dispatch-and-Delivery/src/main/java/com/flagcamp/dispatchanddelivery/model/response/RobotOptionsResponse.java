@@ -1,4 +1,4 @@
-package com.flagcamp.dispatchanddelivery.model;
+package com.flagcamp.dispatchanddelivery.model.response;
 
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
 import lombok.AllArgsConstructor;

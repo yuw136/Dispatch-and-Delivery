@@ -1,4 +1,6 @@
-package com.flagcamp.dispatchanddelivery.model;
+package com.flagcamp.dispatchanddelivery.model.response;
+
+import com.flagcamp.dispatchanddelivery.model.dto.RouteDTO;
 
 // { route: string
 // duration: int

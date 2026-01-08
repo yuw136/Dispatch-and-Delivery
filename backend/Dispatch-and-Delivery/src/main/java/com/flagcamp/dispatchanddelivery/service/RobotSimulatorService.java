@@ -39,6 +39,9 @@ public class RobotSimulatorService {
             RobotEntity robot = robotRepository.findById(robotId)
                 .orElseThrow(()-> new NoSuchElementException("Robot not found"));         
             double speed = robot.speed();
+            
+            //机器人开始任务，设置为不可用
+            robotRepository.updateAvailableByRobotId(robotId, false);
 
             // //计算已经过去的时间
             // Instant timeNow = Instant.now();
@@ -58,8 +61,9 @@ public class RobotSimulatorService {
             publisher.publishEvent(new RobotArrivedEvent(orderId, "DELIVERED"));
             signalManager.awaitDeliver(orderId);
 
-            //机器人结束订单回家
-            //do nothing
+            //机器人结束订单回家，设置为可用
+            robotRepository.updateAvailableByRobotId(robotId, true);
+            
         } catch (NoSuchElementException e) {
             logger.error("Robot not found for orderId: {}, robotId: {}", orderId, robotId, e);
         } catch (InterruptedException e) {

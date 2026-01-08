@@ -2,7 +2,7 @@ package com.flagcamp.dispatchanddelivery.config;
 
 import com.flagcamp.dispatchanddelivery.entity.HubEntity;
 import com.flagcamp.dispatchanddelivery.entity.OrderEntity;
-import com.flagcamp.dispatchanddelivery.model.RouteDTO;
+import com.flagcamp.dispatchanddelivery.model.dto.RouteDTO;
 import com.flagcamp.dispatchanddelivery.repository.HubRepository;
 import com.flagcamp.dispatchanddelivery.repository.OrderRepository;
 import com.flagcamp.dispatchanddelivery.repository.RouteRepository;
@@ -62,7 +62,7 @@ public class RedisDataInitializer {
                             continue;
                         }
                         
-                        logger.info("Using hub {} for order {}", closestHub.hub_id(), order.getId());
+                        logger.info("Using hub {} for order {}", closestHub.id(), order.getId());
                         
                         // Compute route from hub to pickup location
                         // computeRoute returns List<RouteDTO> where [0] is robot route, [1] is drone route

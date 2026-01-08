@@ -2,7 +2,7 @@ package com.flagcamp.dispatchanddelivery.controller;
 
 import com.flagcamp.dispatchanddelivery.entity.HubEntity;
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
-import com.flagcamp.dispatchanddelivery.model.RecommendedRobotsDto;
+import com.flagcamp.dispatchanddelivery.model.dto.RecommendedRobotsDto;
 import com.flagcamp.dispatchanddelivery.service.RobotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -90,7 +90,7 @@ public class AdminController {
                                 @RequestParam double latitude,
                                 @RequestParam double longitude,
                                 @RequestParam double maxWeight,
-                                @RequestParam int speed,
+                                @RequestParam double speed,
                                 @RequestParam double price,
                                 @RequestParam String robotType) {
         return robotService.addRobot(available, battery, hubId, latitude, longitude, maxWeight, speed, price, robotType);
@@ -115,7 +115,7 @@ public class AdminController {
                                    @RequestParam double latitude,
                                    @RequestParam double longitude,
                                    @RequestParam double maxWeight,
-                                   @RequestParam int speed,
+                                   @RequestParam double speed,
                                    @RequestParam double price,
                                    @RequestParam String robotType) {
         return robotService.updateRobot(robotId, available, battery, hubId, latitude, longitude, maxWeight, speed, price, robotType);

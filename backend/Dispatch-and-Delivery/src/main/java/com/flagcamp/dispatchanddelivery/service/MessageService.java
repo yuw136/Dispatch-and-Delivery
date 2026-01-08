@@ -1,10 +1,11 @@
 package com.flagcamp.dispatchanddelivery.service;
 import com.flagcamp.dispatchanddelivery.entity.MessageEntity;
-import com.flagcamp.dispatchanddelivery.mailbox.ConfirmRequest;
-import com.flagcamp.dispatchanddelivery.mailbox.MailboxMessage;
-import com.flagcamp.dispatchanddelivery.model.*;
+import com.flagcamp.dispatchanddelivery.model.dto.MessageDTO;
+import com.flagcamp.dispatchanddelivery.model.enums.ActionRequired;
+import com.flagcamp.dispatchanddelivery.model.enums.MessageType;
 import com.flagcamp.dispatchanddelivery.model.event.MailboxActionConfirmedEvent;
 import com.flagcamp.dispatchanddelivery.model.event.MessageCreatedEvent;
+import com.flagcamp.dispatchanddelivery.model.request.ConfirmRequest;
 import com.flagcamp.dispatchanddelivery.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -20,7 +21,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final ApplicationEventPublisher publisher;
 
-    public List<MailboxMessage> getMailbox(String userId) {
+    public List<MessageDTO> getMailbox(String userId) {
         if (userId == null) {
             throw new IllegalArgumentException("userId cannot be null");
         }
@@ -28,7 +29,7 @@ public class MessageService {
         return messageRepository
                 .findByUserIdOrderByCreatedAtDesc(userId)
                 .stream()
-                .map(MailboxMessage::from)
+                .map(MessageDTO::from)
                 .toList();
     }
 

@@ -1,16 +1,16 @@
 -- Delete existing data in correct order (respecting foreign key constraints)
 DELETE FROM orders;
-DELETE FROM robot;
+DELETE FROM robots;
 DELETE FROM hubs;
 
 -- Sample hub data with real San Francisco locations
-INSERT INTO hubs (hub_id, address, lat, lng) VALUES
+INSERT INTO hubs (id, address, lat, lng) VALUES
 ('HUB-001', 'Downtown Hub - Market St & 4th St, San Francisco, CA 94103', 37.7855, -122.4056),
 ('HUB-002', 'Waterfront Hub - Pier 33, San Francisco, CA 94111', 37.8068, -122.4025),
 ('HUB-003', 'Western Hub - 4816 Fulton St, San Francisco, CA 94121', 37.7749, -122.4194);
 
 -- Sample robot data (robots and drones assigned to hubs)
-INSERT INTO robot (id, available, battery, hub_id, current_lat, current_lng, max_weight, speed, price, robot_type) VALUES
+INSERT INTO robots (id, available, battery, hub_id, current_lat, current_lng, max_weight, speed, price, robot_type) VALUES
 -- Downtown Hub robots
 ('ROBOT-001', true, 95, 'HUB-001', 37.7855, -122.4056, 25.0, 15, 0.50, 'robot'),
 ('ROBOT-002', true, 88, 'HUB-001', 37.7855, -122.4056, 30.0, 12, 0.45, 'robot'),

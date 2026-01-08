@@ -1,13 +1,13 @@
 -- PostgreSQL schema for hubs table (plural, matching HubEntity)
 CREATE TABLE IF NOT EXISTS hubs (
-    hub_id VARCHAR(255) PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY,
     address VARCHAR(500),
     lat DOUBLE PRECISION,
     lng DOUBLE PRECISION
 );
 
 -- PostgreSQL schema for robot table
-CREATE TABLE IF NOT EXISTS robot (
+CREATE TABLE IF NOT EXISTS robots (
     id VARCHAR(255) PRIMARY KEY,
     available BOOLEAN DEFAULT TRUE,
     battery INTEGER DEFAULT 100,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS robot (
     speed DOUBLE PRECISION,
     price DOUBLE PRECISION,
     robot_type VARCHAR(100),
-    CONSTRAINT fk_hub FOREIGN KEY (hub_id) REFERENCES hubs (hub_id) ON DELETE CASCADE
+    CONSTRAINT fk_hub FOREIGN KEY (hub_id) REFERENCES hubs (id) ON DELETE CASCADE
 );
 
 -- PostgreSQL schema for orders table
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS orders (
     duration INTEGER,
     robot_id VARCHAR(255),
     robot_type VARCHAR(100),
-    FOREIGN KEY (robot_id) REFERENCES robot(id)
+    FOREIGN KEY (robot_id) REFERENCES robots(id)
 );
 
 -- Create indexes for common queries
@@ -47,6 +47,6 @@ CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
 CREATE INDEX IF NOT EXISTS idx_orders_submit_time ON orders(submit_time);
 CREATE INDEX IF NOT EXISTS idx_orders_robot_id ON orders(robot_id);
-CREATE INDEX IF NOT EXISTS idx_robot_hub_id ON robot(hub_id);
-CREATE INDEX IF NOT EXISTS idx_robot_type ON robot(robot_type);
+CREATE INDEX IF NOT EXISTS idx_robot_hub_id ON robots(hub_id);
+CREATE INDEX IF NOT EXISTS idx_robot_type ON robots(robot_type);
 

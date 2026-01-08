@@ -1,18 +1,13 @@
 package com.flagcamp.dispatchanddelivery.service;
 
 import com.flagcamp.dispatchanddelivery.entity.HubEntity;
-import com.flagcamp.dispatchanddelivery.entity.OrderEntity;
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
 import com.flagcamp.dispatchanddelivery.repository.HubRepository;
 import com.flagcamp.dispatchanddelivery.repository.OrderRepository;
 import com.flagcamp.dispatchanddelivery.repository.RobotRepository;
-import com.google.maps.model.LatLng;
-
-import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +71,7 @@ public class RobotService {
                                 double latitude,
                                 double longitude,
                                 double maxWeight,
-                                int speed,
+                                double speed,
                                 double price,
                                 String robotType) {
         RobotEntity robot = new RobotEntity(null, available, battery, hubId, latitude, longitude, maxWeight, speed, price, robotType);
@@ -98,7 +93,7 @@ public class RobotService {
                                    double latitude,
                                    double longitude,
                                    double maxWeight,
-                                   int speed,
+                                   double speed,
                                    double price,
                                    String robotType) {
         RobotEntity updated = new RobotEntity(robotId, available, battery, hubId, latitude, longitude, maxWeight, speed, price, robotType);
@@ -144,11 +139,11 @@ public class RobotService {
 
     // 找最快的（这里 max 用 reverseOrder 或直接调整比较器）
     public Optional<RobotEntity> findFastestRobot(String hubId) {
-        return findBestBy(hubId, "robot", Comparator.comparingInt(RobotEntity::speed).reversed());
+        return findBestBy(hubId, "robot", Comparator.comparingDouble(RobotEntity::speed).reversed());
     }
 
     public Optional<RobotEntity> findFastestDrone(String hubId) {
-        return findBestBy(hubId, "drone", Comparator.comparingInt(RobotEntity::speed).reversed());
+        return findBestBy(hubId, "drone", Comparator.comparingDouble(RobotEntity::speed).reversed());
     }
 
     

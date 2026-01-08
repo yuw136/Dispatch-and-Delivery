@@ -6,8 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.flagcamp.dispatchanddelivery.client.GoogleMapsClient;
 import com.flagcamp.dispatchanddelivery.entity.RouteEntity;
-import com.flagcamp.dispatchanddelivery.model.RouteDTO;
-
+import com.flagcamp.dispatchanddelivery.model.dto.RouteDTO;
 import com.flagcamp.dispatchanddelivery.repository.RouteRepository;
 import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.DirectionsResult;

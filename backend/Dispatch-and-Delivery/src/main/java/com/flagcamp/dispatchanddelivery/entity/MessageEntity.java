@@ -1,9 +1,10 @@
 package com.flagcamp.dispatchanddelivery.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import com.flagcamp.dispatchanddelivery.model.ActionRequired;
-import com.flagcamp.dispatchanddelivery.model.MessageType;
+import com.flagcamp.dispatchanddelivery.model.enums.ActionRequired;
+import com.flagcamp.dispatchanddelivery.model.enums.MessageType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,7 @@ import lombok.Setter;
 
 public class MessageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  long id;
+    private String id;
     // 接收者
     @Column(nullable = false)
     private String userId;
@@ -65,6 +65,7 @@ public class MessageEntity {
                     String content,
                     MessageType type,
                     ActionRequired actionRequired) {
+        this.id = UUID.randomUUID().toString();
         this.userId = userId;
         this.orderId = orderId;
         this.subject = subject;

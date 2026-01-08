@@ -1,4 +1,4 @@
-package com.flagcamp.dispatchanddelivery.model;
+package com.flagcamp.dispatchanddelivery.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

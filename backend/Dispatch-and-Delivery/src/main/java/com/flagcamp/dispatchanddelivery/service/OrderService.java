@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.flagcamp.dispatchanddelivery.entity.OrderEntity;
 import com.flagcamp.dispatchanddelivery.manager.RobotSignalManager;
@@ -26,6 +27,7 @@ public class OrderService {
         return orderEntity;
     }
 
+    @Transactional
     public void confirmPickup(String orderId, String userId, 
         LocalDateTime pickupTime){
         //update order
@@ -40,6 +42,7 @@ public class OrderService {
         
     }
 
+    @Transactional
     public void confirmDelivery(String orderId, String userId
     ){
         //update order

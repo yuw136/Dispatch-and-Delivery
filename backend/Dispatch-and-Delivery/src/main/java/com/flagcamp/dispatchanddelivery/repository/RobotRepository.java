@@ -16,10 +16,15 @@ public interface RobotRepository extends ListCrudRepository<RobotEntity, String>
     @Query("SELECT * FROM robots WHERE hub_id = :hubId AND available = true AND robot_type = :type")
     List<RobotEntity> findAvailableByHubIdAndType(String hubId, String type);
 
-    //加了这个方法，因为感觉如果只改position的话没必要用原来把所有字段全搜出来再set回去的写法
+    //加了这些方法，因为感觉如果只改一个字段的话没必要用原来把所有字段全搜出来再set回去的写法
     @Modifying
-    @Query("UPDATE robots set lat = :lat, lng = :lng where robot_id= :robotId")
+    @Query("UPDATE robots SET current_lat = :lat, current_lng = :lng WHERE id = :robotId")
     void updatePositionByRobotId(@Param("robotId") String robotId,
                                 @Param("lat") double lat,
                                 @Param("lng") double lng);
+
+    @Modifying
+    @Query("UPDATE robots SET available = :available WHERE robot_id = :robotId")
+    void updateAvailableByRobotId(@Param("robotId") String robotId,
+                                  @Param("available") boolean available);
 }

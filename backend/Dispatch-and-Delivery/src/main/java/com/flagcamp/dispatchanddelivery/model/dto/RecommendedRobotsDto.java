@@ -1,4 +1,4 @@
-package com.flagcamp.dispatchanddelivery.model;
+package com.flagcamp.dispatchanddelivery.model.dto;
 
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
 

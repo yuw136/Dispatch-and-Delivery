@@ -1,12 +1,12 @@
-package com.flagcamp.dispatchanddelivery.mailbox;
+package com.flagcamp.dispatchanddelivery.model.dto;
 
 import java.time.Instant;
 import java.time.ZoneId;
 
 import com.flagcamp.dispatchanddelivery.entity.MessageEntity;
 
-public class MailboxMessage {
-    public long id;
+public class MessageDTO {
+    public String id;
     public String subject;
     public String content;
     public String type;      // 可选
@@ -15,9 +15,9 @@ public class MailboxMessage {
     public Instant time;
     public boolean read;
 
-    public MailboxMessage() {}
-    public static MailboxMessage from(MessageEntity message) {
-        MailboxMessage dto = new MailboxMessage();
+    public MessageDTO() {}
+    public static MessageDTO from(MessageEntity message) {
+        MessageDTO dto = new MessageDTO();
         dto.id = message.getId();
         dto.subject = message.getSubject();
         dto.content = message.getContent();

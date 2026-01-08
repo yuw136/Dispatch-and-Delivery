@@ -4,7 +4,12 @@ import com.flagcamp.dispatchanddelivery.entity.HubEntity;
 import com.flagcamp.dispatchanddelivery.entity.OrderEntity;
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
 import com.flagcamp.dispatchanddelivery.entity.RouteEntity;
-import com.flagcamp.dispatchanddelivery.model.*;
+import com.flagcamp.dispatchanddelivery.model.dto.RouteDTO;
+import com.flagcamp.dispatchanddelivery.model.request.RouteRequestBody;
+import com.flagcamp.dispatchanddelivery.model.response.DeliveryOptionsResponse;
+import com.flagcamp.dispatchanddelivery.model.response.ErrorResponse;
+import com.flagcamp.dispatchanddelivery.model.response.PositionResponse;
+import com.flagcamp.dispatchanddelivery.model.response.RouteResponse;
 import com.flagcamp.dispatchanddelivery.repository.OrderRepository;
 import com.flagcamp.dispatchanddelivery.service.RobotService;
 import com.flagcamp.dispatchanddelivery.service.RouteService;
@@ -127,8 +132,8 @@ public class OrderController {
                     throw new IllegalArgumentException("No hub found near pickup location");
                 }
                 //get a robot and a drone
-                RobotEntity robot = robotService.findCheapestRobot(hub.get().hub_id()).get();
-                RobotEntity drone = robotService.findFastestDrone(hub.get().hub_id()).get();
+                RobotEntity robot = robotService.findCheapestRobot(hub.get().id()).get();
+                RobotEntity drone = robotService.findFastestDrone(hub.get().id()).get();
 
                 //compute prices: per km for unit price, meter for distance
                 double robotPrice = routeDTOs.get(0).distance() * robot.price() / 1000;

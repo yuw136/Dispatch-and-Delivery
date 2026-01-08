@@ -1,7 +1,7 @@
-package com.flagcamp.dispatchanddelivery.mailbox;
+package com.flagcamp.dispatchanddelivery.model.request;
 
 public class ConfirmRequest {
-    public long messageId;
+    public String messageId;
     public String orderId;
     public String action; // "PICKUP" | "DELIVERY" | "ACK"
     public String time;   // ISO string
