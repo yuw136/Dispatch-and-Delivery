@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DispatchAndDeliveryApplication {
     
     public static void main(String[] args) {
-        // Load .env from parent directory (project root)
         Dotenv dotenv = Dotenv.configure()
-            .directory("../../")  // Go up two levels from backend/Dispatch-and-Delivery
             .ignoreIfMissing()
             .load();
         

@@ -344,7 +344,7 @@ public class RouteService {
             throw new IllegalArgumentException("Route not found for order: " + orderId);
         }
         RouteEntity updatedRoute = new RouteEntity(
-            route.getId(), 
+            route.getRouteId(),
             route.getOrderId(), 
             route.getHubToPickup(),
             route.getPickupToEnd(),

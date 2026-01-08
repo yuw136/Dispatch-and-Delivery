@@ -14,7 +14,7 @@ public class HubEntity {
     
     @Id
     @Column(name = "id")
-    private String id;
+    private String hubId;
     
     @Column(name = "address")
     private String address;

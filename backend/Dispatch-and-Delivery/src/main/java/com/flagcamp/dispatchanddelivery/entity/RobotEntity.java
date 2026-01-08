@@ -14,7 +14,7 @@ public class RobotEntity {
     
     @Id
     @Column(name = "id")
-    private String id;
+    private String robotId;
     
     @Column(name = "available")
     private boolean available;

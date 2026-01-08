@@ -47,7 +47,7 @@ public class RedisDataInitializer {
                 try {
                     // Only create routes for orders with pickup times
                     if (order.getPickupTime() != null) {
-                        logger.info("Computing and storing route for order: {}", order.getId());
+                        logger.info("Computing and storing route for order: {}", order.getOrderId());
                         
                         // Find the closest hub to the pickup location
                         HubEntity closestHub = findClosestHub(
@@ -57,12 +57,12 @@ public class RedisDataInitializer {
                         );
                         
                         if (closestHub == null) {
-                            logger.error("No hub found for order: {}", order.getId());
+                            logger.error("No hub found for order: {}", order.getOrderId());
                             routesFailed++;
                             continue;
                         }
                         
-                        logger.info("Using hub {} for order {}", closestHub.getId(), order.getId());
+                        logger.info("Using hub {} for order {}", closestHub.getHubId(), order.getOrderId());
                         
                         // Compute route from hub to pickup location
                         // computeRoute returns List<RouteDTO> where [0] is robot route, [1] is drone route
@@ -88,7 +88,7 @@ public class RedisDataInitializer {
                         
                         // Store the route with the order ID
                         routeService.storeRoute(
-                            order.getId(),
+                            order.getOrderId(),
                             hubToPickupRoute.encodedPolyline(),
                             pickupToEndRoute.encodedPolyline(),
                             closestHub.getHubLat(),
@@ -104,7 +104,7 @@ public class RedisDataInitializer {
                     }
                 } catch (Exception e) {
                     logger.error("Failed to create route for order {}: {}", 
-                               order.getId(), e.getMessage(), e);
+                               order.getOrderId(), e.getMessage(), e);
                     routesFailed++;
                 }
             }
