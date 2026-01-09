@@ -170,10 +170,11 @@ export function MailboxProvider({ children }) {
       setWsStatus("connecting");
 
       try {
-        // 从localStorage获取userId（与API调用保持一致）
-        const userId = localStorage.getItem("userId") || "user-bob";
+        // Get userId from localStorage (UUID, saved during login)
+        // WebSocket needs userId in URL for routing messages
+        const userId = localStorage.getItem("userId") || "user-guest";
 
-        // 在WebSocket URL中添加userId参数（后端现在需要这个参数）
+        // WebSocket URL with userId (UUID string)
         const wsUrlWithUserId = `${WS_URL}?userId=${encodeURIComponent(
           userId
         )}`;

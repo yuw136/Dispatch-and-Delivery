@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShoppingCart,
   BarChart3,
@@ -7,7 +7,10 @@ import {
   AlertTriangle, // 引入警告图标
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
+import { extractUsernameFromEmail, getUserInitials } from "../utils/userUtils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,9 +26,22 @@ export function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 获取用户 email 并提取 username
+  const [userEmail, setUserEmail] = useState("");
+  const username = extractUsernameFromEmail(userEmail);
+  const userInitials = getUserInitials(userEmail);
+
   // 1. 定义状态：控制弹窗显示，记录用户本来想去哪
   const [showExitDialog, setShowExitDialog] = useState(false);
   const [pendingPath, setPendingPath] = useState(null);
+
+  // 从 localStorage 获取 email
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    if (email) {
+      setUserEmail(email);
+    }
+  }, []);
 
   // 2. 判断当前是否在“下单流程”中
   const isCreatingOrder =
@@ -156,16 +172,24 @@ export function Sidebar() {
         {/* User Profile */}
         <div className="p-4 border-t border-gray-200 shrink-0">
           <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-            <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold">
-              JD
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">
+              {userInitials}
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-sm font-medium text-gray-900 truncate">
-                John Doe
+                {username}
               </div>
-              <div className="text-xs text-gray-500 truncate">Admin User</div>
+              <div className="text-xs text-gray-500 truncate">{userEmail}</div>
             </div>
           </div>
+          {/* Logout Button */}
+          <Button
+            variant="ghost"
+            className="w-full mt-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </div>
       </aside>
 

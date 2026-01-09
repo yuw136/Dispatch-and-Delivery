@@ -1,5 +1,5 @@
 -- PostgreSQL schema for hubs table (plural)
-DROP TABLE IF EXISTS hubs, robots, messages, orders, packages, users;
+DROP TABLE IF EXISTS hubs, robots, messages, orders, packages, users, authorities;
 
 CREATE TABLE IF NOT EXISTS hubs (
     id VARCHAR(255) PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS packages (
 CREATE TABLE IF NOT EXISTS orders (
     id VARCHAR(255) PRIMARY KEY,
     submit_time TIMESTAMP,
-    user_id VARCHAR(255),
+    user_id VARCHAR(36),
     from_address VARCHAR(500),
     to_address VARCHAR(500),
     from_lat DOUBLE PRECISION,
@@ -53,10 +53,28 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (package_id) REFERENCES packages(id)
 );
 
+
+CREATE TABLE users
+(
+    id         VARCHAR(36) PRIMARY KEY DEFAULT gen_random_uuid()::text NOT NULL,
+    email      TEXT UNIQUE          NOT NULL,
+    password   TEXT                 NOT NULL,
+    enabled    BOOLEAN DEFAULT TRUE NOT NULL
+);
+
+CREATE TABLE authorities
+(
+    id        SERIAL PRIMARY KEY NOT NULL,
+    email     TEXT               NOT NULL,
+    authority TEXT               NOT NULL,
+    CONSTRAINT fk_customer FOREIGN KEY (email) REFERENCES users (email) ON DELETE CASCADE
+);
+
+
 -- Create messages table
 CREATE TABLE IF NOT EXISTS messages (
     id VARCHAR(255) PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
     order_id VARCHAR(255),
     subject VARCHAR(100) NOT NULL,
     content TEXT,
@@ -76,6 +94,7 @@ CREATE INDEX IF NOT EXISTS idx_orders_robot_id ON orders(robot_id);
 CREATE INDEX IF NOT EXISTS idx_orders_package_id ON orders(package_id);
 CREATE INDEX IF NOT EXISTS idx_robots_hub_id ON robots(hub_id);
 CREATE INDEX IF NOT EXISTS idx_robots_type ON robots(robot_type);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_messages_user_id ON messages(user_id);
 CREATE INDEX IF NOT EXISTS idx_messages_created_at ON messages(created_at);
 

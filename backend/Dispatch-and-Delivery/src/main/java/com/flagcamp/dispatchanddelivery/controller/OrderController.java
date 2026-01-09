@@ -3,9 +3,11 @@ package com.flagcamp.dispatchanddelivery.controller;
 import com.flagcamp.dispatchanddelivery.model.dto.OrderRequestDTO;
 import com.flagcamp.dispatchanddelivery.model.dto.OrderResponseDTO;
 import com.flagcamp.dispatchanddelivery.model.response.PositionResponse;
+import com.flagcamp.dispatchanddelivery.security.CustomUserDetails;
 import com.flagcamp.dispatchanddelivery.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +22,11 @@ public class OrderController {
 
     // 1. GET /dashboard/orders -> Return list of orders for the current user
     @GetMapping
-    public ResponseEntity<List<OrderResponseDTO>> getOrderList() {
-        // Hardcoded user ID "1" for now, should be retrieved from SecurityContext in production
-        return ResponseEntity.ok(orderService.getOrderList("user-bob"));
+    public ResponseEntity<List<OrderResponseDTO>> getOrderList(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+        // Get userId from session (stored in CustomUserDetails)
+        String userId = userDetails.getUserId();
+        return ResponseEntity.ok(orderService.getOrderList(userId));
     }
 
     // 2. POST /dashboard/orders/preview -> Preview delivery options
@@ -38,7 +42,9 @@ public class OrderController {
 
     // 3. POST /dashboard/orders/submit -> Submit order
     @PostMapping("/deliveryOptions/submit")
-    public ResponseEntity<Object> submitOrder(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<Object> submitOrder(
+            @RequestBody Map<String, Object> payload,
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
         OrderRequestDTO dto = new OrderRequestDTO();
         dto.setFromAddress((String) payload.get("from_address"));
         dto.setToAddress((String) payload.get("to_address"));
@@ -57,8 +63,8 @@ public class OrderController {
         dto.setToLat(((Number) payload.get("to_lat")).doubleValue());
         dto.setToLng(((Number) payload.get("to_lng")).doubleValue());
 
-        // TODO: Get userId from SecurityContext in production
-        String userId = "user-bob"; // Hardcoded for now
+        // Get userId from session (stored in CustomUserDetails)
+        String userId = userDetails.getUserId();
         Map<String, Object> result = orderService.submitOrder(userId, dto);
         
         // After transaction is committed, start the robot asynchronously

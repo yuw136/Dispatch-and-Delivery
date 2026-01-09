@@ -7,10 +7,8 @@ import { apiClient } from "./apiClient";
  * - 或者 [{ message, time, ... }]
  */
 export async function fetchMailboxMessages() {
-  const userId = localStorage.getItem("userId") || "user-bob"; // 默认使用 user-bob
-  const res = await apiClient.get("/dashboard/mailbox", {
-    params: { userId },
-  });
+  // No need to pass userId - backend gets it from session
+  const res = await apiClient.get("/dashboard/mailbox");
   return res.data;
 }
 

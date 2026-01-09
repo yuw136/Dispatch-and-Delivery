@@ -17,7 +17,7 @@ import { DeliveryOptions } from "./components/DeliveryOptions";
 import AdminDashboard from "./pages/AdminDashboard";
 import { Mailbox } from "./components/Mailbox";
 import { MailboxProvider } from "./contexts/MailboxContext";
-import StripeMockPage from "./pages/StripeMockPage"
+import StripeMockPage from "./pages/StripeMockPage";
 
 import { Toaster } from "./components/ui/sonner";
 import "./index.css";
@@ -52,7 +52,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <MailboxProvider>
+        <Dashboard />
+      </MailboxProvider>
+    ),
     errorElement: <NotFound />,
     children: [
       {
@@ -80,13 +84,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-    <APIProvider
+  <APIProvider
     apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY}
-    libraries={["geocoding", "geometry"]}>
-        <MailboxProvider>
-            <RouterProvider router={router} />
-            <Toaster />
-        </MailboxProvider>
-    </APIProvider>
+    libraries={["geocoding", "geometry"]}
+  >
+    <RouterProvider router={router} />
+    <Toaster />
+  </APIProvider>
 );
-
