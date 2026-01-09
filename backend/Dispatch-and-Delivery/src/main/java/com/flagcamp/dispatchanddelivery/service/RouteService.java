@@ -105,8 +105,12 @@ public class RouteService {
         //Get the routeDTO for drone, which is just straight line between 2 points 
         //Create a straight line path with just start and end points
         List<LatLng> straightPath = new ArrayList<>();
-        straightPath.add(new LatLng(fromLat, fromLng));
-        straightPath.add(new LatLng(toLat, toLng));
+        // 使用Google Maps返回的起点，避免坐标吸附
+        straightPath.add(new LatLng(route.legs[0].startLocation.lat, 
+            route.legs[0].startLocation.lng)); 
+        straightPath.add(new LatLng(route.legs[0].endLocation.lat, 
+            route.legs[0].endLocation.lng));    
+
         
         //Encode the straight line path
         String encodedStraightPath = PolylineEncoding.encode(straightPath);
@@ -119,8 +123,8 @@ public class RouteService {
         
         RouteDTO droneRouteDTO = new RouteDTO(
             encodedStraightPath,
-            fromLat,
-            fromLng,
+            route.legs[0].startLocation.lat,  
+            route.legs[0].startLocation.lng,
             straightLineDistance
         );
     

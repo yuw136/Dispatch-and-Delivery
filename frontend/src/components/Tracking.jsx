@@ -10,8 +10,7 @@ import { Drone, Bot } from "lucide-react";
 import { trackOrder } from "../api/trackApi";
 
 export default function Tracking(props) {
-    
-    // ... rest of code
+  // ... rest of code
   const { order_id, robot_type } = props;
   const [route, setRoute] = useState(null);
   const [position, setPosition] = useState(null);
@@ -160,7 +159,6 @@ export default function Tracking(props) {
 
         // Validate response data before setting state
         if (res.data) {
-          
           // Validate route data
           if (res.data.route) {
             setRoute(res.data.route);
@@ -196,10 +194,7 @@ export default function Tracking(props) {
     const initTimer = setTimeout(() => {
       const initializeTracking = async () => {
         await fetchTrackingData(true); // Wait for initial fetch to complete/timeout (handles setIsLoading internally)
-        intervalRef.current = setInterval(
-          () => fetchTrackingData(false),
-          10000
-        ); // Then start polling with isInitialFetch=false
+        intervalRef.current = setInterval(() => fetchTrackingData(false), 3000); // Then start polling with isInitialFetch=false
       };
 
       initializeTracking();

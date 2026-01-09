@@ -86,7 +86,7 @@ public class RobotSimulatorService {
         boolean arrived = false;
         
         //5秒算一次
-        int intervalSeconds = 5;
+        int intervalSeconds = 3;
         int currentElapsed = hasElapsed;
 
         logger.info("Starting movement simulation for order {}, pickup={}, speed={} km/h", 

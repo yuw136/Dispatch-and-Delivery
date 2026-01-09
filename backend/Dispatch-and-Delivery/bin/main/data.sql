@@ -7,18 +7,18 @@ INSERT INTO hubs (id, address, hub_lat, hub_lng) VALUES
 -- Sample robot data (robots and drones assigned to hubs)
 INSERT INTO robots (id, available, battery, hub_id, current_lat, current_lng, max_weight, speed, price, robot_type) VALUES
 -- Downtown Hub robots
-('ROBOT-001', true, 95, 'HUB-001', 37.7855, -122.4056, 25.0, 15, 0.50, 'robot'),
-('ROBOT-002', true, 88, 'HUB-001', 37.7855, -122.4056, 30.0, 12, 0.45, 'robot'),
-('ROBOT-003', true, 92, 'HUB-001', 37.7855, -122.4056, 20.0, 18, 0.55, 'robot'),
+('ROBOT-001', true, 95, 'HUB-001', 37.7855, -122.4056, 25.0, 30, 0.50, 'robot'),
+('ROBOT-002', true, 88, 'HUB-001', 37.7855, -122.4056, 30.0, 25, 0.45, 'robot'),
+('ROBOT-003', true, 92, 'HUB-001', 37.7855, -122.4056, 20.0, 35, 0.55, 'robot'),
 ('DRONE-001', true, 85, 'HUB-001', 37.7855, -122.4056, 10.0, 40, 1.20, 'drone'),
 ('DRONE-002', true, 90, 'HUB-001', 37.7855, -122.4056, 12.0, 45, 1.30, 'drone'),
 
 -- Waterfront Hub robots
-('ROBOT-004', true, 100, 'HUB-002', 37.8068, -122.4025, 28.0, 15, 2.50, 'robot'),
-('ROBOT-005', true, 78, 'HUB-002', 37.8068, -122.4025, 22.0, 16, 0.52, 'robot'),
-('ROBOT-006', true, 93, 'HUB-002', 37.8068, -122.4025, 25.0, 13, 0.47, 'robot'),
-('DRONE-003', true, 82, 'HUB-002', 37.8068, -122.4025, 11.0, 42, 1.25, 'drone'),
-('DRONE-004', true, 95, 'HUB-002', 37.8068, -122.4025, 15.0, 38, 1.15, 'drone'),
+('ROBOT-004', true, 100, 'HUB-002', 37.8068, -122.4025, 28.0, 30, 0.50, 'robot'),
+('ROBOT-005', true, 78, 'HUB-002', 37.8068, -122.4025, 22.0, 30, 0.52, 'robot'),
+('ROBOT-006', true, 93, 'HUB-002', 37.8068, -122.4025, 25.0, 28, 0.47, 'robot'),
+('DRONE-003', true, 82, 'HUB-002', 37.8068, -122.4025, 11.0, 45, 1.25, 'drone'),
+('DRONE-004', true, 95, 'HUB-002', 37.8068, -122.4025, 15.0, 40, 1.15, 'drone'),
 
 -- Western Hub robots
 ('ROBOT-007', true, 87, 'HUB-003', 37.7694, -122.4862, 26.0, 17, 0.53, 'robot'),
