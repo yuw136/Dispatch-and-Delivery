@@ -18,7 +18,7 @@ public class OrderEntity {
     @Id
     @Column(name = "id")
     @JsonProperty("order_id")
-    private String id;
+    private String orderId;
     
     @Column(name = "submit_time")
     private LocalDateTime submitTime;

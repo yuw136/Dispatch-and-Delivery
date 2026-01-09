@@ -4,7 +4,7 @@ DELETE FROM robots;
 DELETE FROM hubs;
 
 -- Sample hub data with real San Francisco locations
-INSERT INTO hubs (id, address, lat, lng) VALUES
+INSERT INTO hubs (id, address, hub_lat, hub_lng) VALUES
 ('HUB-001', 'Downtown Hub - Market St & 4th St, San Francisco, CA 94103', 37.7855, -122.4056),
 ('HUB-002', 'Waterfront Hub - Pier 33, San Francisco, CA 94111', 37.8068, -122.4025),
 ('HUB-003', 'Western Hub - 4816 Fulton St, San Francisco, CA 94121', 37.7749, -122.4194);

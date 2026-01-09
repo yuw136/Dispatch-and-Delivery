@@ -264,7 +264,7 @@ export const createOrder = async (orderData) => {
   }
   try {
     const response = await apiClient.post(
-      "/dashboard/orders/deliveryOptions",
+      "/dashboard/orders/deliveryOptions/submit",
       orderData
     );
     return response.data;

@@ -47,7 +47,7 @@ public class RedisDataInitializer {
                 try {
                     // Only create routes for orders with pickup times
                     if (order.getPickupTime() != null) {
-                        logger.info("Computing and storing route for order: {}", order.getId());
+                        logger.info("Computing and storing route for order: {}", order.getOrderId());
                         
                         // Find the closest hub to the pickup location
                         HubEntity closestHub = findClosestHub(
@@ -57,18 +57,18 @@ public class RedisDataInitializer {
                         );
                         
                         if (closestHub == null) {
-                            logger.error("No hub found for order: {}", order.getId());
+                            logger.error("No hub found for order: {}", order.getOrderId());
                             routesFailed++;
                             continue;
                         }
                         
-                        logger.info("Using hub {} for order {}", closestHub.id(), order.getId());
+                        logger.info("Using hub {} for order {}", closestHub.getHubId(), order.getOrderId());
                         
                         // Compute route from hub to pickup location
                         // computeRoute returns List<RouteDTO> where [0] is robot route, [1] is drone route
                         List<RouteDTO> hubToPickupRoutes = routeService.computeRoute(
-                            closestHub.lat(),
-                            closestHub.lng(),
+                            closestHub.getHubLat(),
+                            closestHub.getHubLng(),
                             order.getFromLat(),
                             order.getFromLng()
                         );
@@ -88,11 +88,11 @@ public class RedisDataInitializer {
                         
                         // Store the route with the order ID
                         routeService.storeRoute(
-                            order.getId(),
+                            order.getOrderId(),
                             hubToPickupRoute.encodedPolyline(),
                             pickupToEndRoute.encodedPolyline(),
-                            closestHub.lat(),
-                            closestHub.lng(),
+                            closestHub.getHubLat(),
+                            closestHub.getHubLng(),
                             hubToPickupRoute.distance(),
                             pickupToEndRoute.distance()
                         );
@@ -104,7 +104,7 @@ public class RedisDataInitializer {
                     }
                 } catch (Exception e) {
                     logger.error("Failed to create route for order {}: {}", 
-                               order.getId(), e.getMessage(), e);
+                               order.getOrderId(), e.getMessage(), e);
                     routesFailed++;
                 }
             }
@@ -128,7 +128,7 @@ public class RedisDataInitializer {
         double minDistance = Double.MAX_VALUE;
         
         for (HubEntity hub : allHubs) {
-            double distance = calculateDistance(lat, lng, hub.lat(), hub.lng());
+            double distance = calculateDistance(lat, lng, hub.getHubLat(), hub.getHubLng());
             
             if (distance < minDistance) {
                 minDistance = distance;

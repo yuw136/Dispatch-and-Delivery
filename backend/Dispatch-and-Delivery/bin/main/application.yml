@@ -33,4 +33,4 @@ logging:
     org.springframework.jdbc.core: DEBUG # SQL
 google:
   maps:
-    api-key: ${GOOGLE_MAP_API_KEY:default-value}
+    api-key: ${GOOGLE_MAP_API_KEY}

@@ -1,12 +1,12 @@
--- PostgreSQL schema for hubs table (plural, matching HubEntity)
+-- PostgreSQL schema for hubs table (plural)
 CREATE TABLE IF NOT EXISTS hubs (
     id VARCHAR(255) PRIMARY KEY,
     address VARCHAR(500),
-    lat DOUBLE PRECISION,
-    lng DOUBLE PRECISION
+    hub_lat DOUBLE PRECISION,
+    hub_lng DOUBLE PRECISION
 );
 
--- PostgreSQL schema for robot table
+-- PostgreSQL schema for robots table (plural)
 CREATE TABLE IF NOT EXISTS robots (
     id VARCHAR(255) PRIMARY KEY,
     available BOOLEAN DEFAULT TRUE,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS robots (
     CONSTRAINT fk_hub FOREIGN KEY (hub_id) REFERENCES hubs (id) ON DELETE CASCADE
 );
 
--- PostgreSQL schema for orders table
+-- PostgreSQL schema for orders table (plural)
 CREATE TABLE IF NOT EXISTS orders (
     id VARCHAR(255) PRIMARY KEY,
     submit_time TIMESTAMP,
@@ -47,6 +47,6 @@ CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
 CREATE INDEX IF NOT EXISTS idx_orders_submit_time ON orders(submit_time);
 CREATE INDEX IF NOT EXISTS idx_orders_robot_id ON orders(robot_id);
-CREATE INDEX IF NOT EXISTS idx_robot_hub_id ON robots(hub_id);
-CREATE INDEX IF NOT EXISTS idx_robot_type ON robots(robot_type);
+CREATE INDEX IF NOT EXISTS idx_robots_hub_id ON robots(hub_id);
+CREATE INDEX IF NOT EXISTS idx_robots_type ON robots(robot_type);
 

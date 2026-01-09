@@ -2,7 +2,6 @@ package com.flagcamp.dispatchanddelivery.controller;
 
 import com.flagcamp.dispatchanddelivery.entity.HubEntity;
 import com.flagcamp.dispatchanddelivery.entity.RobotEntity;
-import com.flagcamp.dispatchanddelivery.model.dto.RecommendedRobotsDto;
 import com.flagcamp.dispatchanddelivery.service.RobotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +51,7 @@ public class AdminController {
     public HubEntity addHub(@RequestParam double latitude,
                             @RequestParam double longitude,
                             @RequestParam String address) {
-        return robotService.addHub(latitude, longitude, address);
+        return robotService.addHub(address, latitude, longitude);
     }
 
     @GetMapping("/hubs")
@@ -71,7 +70,7 @@ public class AdminController {
                                @RequestParam double latitude,
                                @RequestParam double longitude,
                                @RequestParam String address) {
-        return robotService.updateHub(hubId, latitude, longitude, address);
+        return robotService.updateHub(hubId, address, latitude, longitude);
     }
 
     @DeleteMapping("/hubs/{hubId}")
@@ -133,17 +132,5 @@ public class AdminController {
                                    @RequestParam double longitude) {
         return robotService.findNearestHub(latitude, longitude)
                 .orElseThrow(() -> new RuntimeException("No hubs available"));
-    }
-
-    // ===================== 查询推荐机器人 =====================
-    // 返回该 Hub 上最便宜的 robot 和最快的 drone
-    @GetMapping("/robots/recommend")
-    public RecommendedRobotsDto recommendRobots(@RequestParam String hubId) {
-        return new RecommendedRobotsDto(
-                robotService.findCheapestRobot(hubId)
-                        .orElseThrow(() -> new RuntimeException("No available robot")),
-                robotService.findFastestDrone(hubId)
-                        .orElseThrow(() -> new RuntimeException("No available drone"))
-        );
     }
 }
