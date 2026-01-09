@@ -90,6 +90,24 @@ export function Sidebar() {
     },
   ];
 
+  const handleLogout = async () => {
+    try {
+      await axios.post("/logout", null, { withCredentials: true });
+      toast.success("Logged out");
+    } catch (err) {
+      console.error("Logout error:", err);
+      // avoid stucking
+      toast.error("Logout failed (cleared locally)");
+    } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("role");
+      localStorage.removeItem("expiration");
+      localStorage.removeItem("username");
+      navigate("/login", { replace: true });
+    }
+  };
+
   return (
     <>
       <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-full">

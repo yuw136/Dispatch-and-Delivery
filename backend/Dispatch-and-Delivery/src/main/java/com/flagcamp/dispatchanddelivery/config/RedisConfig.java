@@ -1,15 +1,30 @@
 package com.flagcamp.dispatchanddelivery.config;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+
 
 @Configuration
 @EnableRedisRepositories(basePackages = "com.flagcamp.dispatchanddelivery.repository")
 public class RedisConfig {
-    // Spring Data Redis will auto-configure the necessary beans
-    // RedisTemplate and other beans are provided by Spring Boot auto-configuration
-    
-    // Note: RouteRepository is a Redis repository (RouteEntity has @RedisHash)
-    // Other repositories (Order, Hub, Robot) are JPA repositories for PostgreSQL
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    // clean previous session IDs
+    @Bean
+    public CommandLineRunner clearRedis(RedisConnectionFactory factory) {
+        return args -> {
+            System.out.println("Cleaning Redis session data...");
+            factory.getConnection().serverCommands().flushAll();
+        };
+    }
 }
+
 
