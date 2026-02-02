@@ -16,12 +16,12 @@ export function setAuthToken(token) {
 }
 
 export const apiClient = axios.create({
-  // In development, don't use baseURL to let Vite proxy handle requests
-  // In production, you may want to set baseURL to your backend URL
-  baseURL: import.meta.env.DEV ? "" : BASE_URL,
+  // Always use BASE_URL to directly connect to backend
+  // This avoids Vite proxy complications with CORS
+  baseURL: BASE_URL,
   timeout: 15000,
   withCredentials: true,
-}); 
+});
 
 // // 自动带上 token（如果后端用 Bearer token）
 // apiClient.interceptors.request.use((config) => {

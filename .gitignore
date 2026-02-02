@@ -12,7 +12,7 @@ build/
 .gradle/
 gradle-app.setting
 !gradle-wrapper.jar
-backend/Dispatch-and-Delivery/gradle.properties
+backend/gradle.properties
 
 # Java/Gradle specific
 *.class

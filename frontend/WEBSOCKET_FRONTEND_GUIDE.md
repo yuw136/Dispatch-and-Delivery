@@ -389,4 +389,4 @@ const WS_URL = `${WS_PROTOCOL}//${WS_HOST}/ws`;
 
 详细的后端 WebSocket 实现文档请参考：
 
-- `backend/Dispatch-and-Delivery/WEBSOCKET_USAGE.md`
+- `backend/WEBSOCKET_USAGE.md`

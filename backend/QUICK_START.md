@@ -96,7 +96,7 @@ docker ps
 
 ```powershell
 # 进入后端目录
-cd backend/Dispatch-and-Delivery
+cd backend
 
 # 构建应用程序（下载依赖）
 .\gradlew.bat build
@@ -109,7 +109,7 @@ cd backend/Dispatch-and-Delivery
 
 ```bash
 # 进入后端目录
-cd backend/Dispatch-and-Delivery
+cd backend
 
 # 构建应用程序（下载依赖）
 ./gradlew build
@@ -410,7 +410,7 @@ lsof -i :8080
 netstat -an | grep 8080
 ```
 
-终止该进程或在 `backend/Dispatch-and-Delivery/src/main/resources/application.yml` 中更改端口
+终止该进程或在 `backend/src/main/resources/application.yml` 中更改端口
 
 ### 前端无法启动 - "端口 5173 已被使用"
 

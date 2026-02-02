@@ -133,14 +133,14 @@ docker ps
 Windows：
 
 ```powershell
-cd backend/Dispatch-and-Delivery
+cd backend
 .\gradlew.bat bootRun
 ```
 
 macOS/Linux：
 
 ```bash
-cd backend/Dispatch-and-Delivery
+cd backend
 ./gradlew bootRun
 ```
 
@@ -321,7 +321,7 @@ npm run dev        # 重新启动
 ## 七、项目结构
 
 ```
-├── backend/Dispatch-and-Delivery/   # Spring Boot 后端
+├── backend/                        # Spring Boot 后端
 │   ├── src/main/java/              # Java 源代码
 │   ├── src/main/resources/         # 配置文件
 │   │   ├── application.yml         # 主配置

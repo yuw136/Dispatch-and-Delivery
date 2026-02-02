@@ -18,21 +18,10 @@ export default defineConfig({
       overlay: true,
     },
     proxy: {
-      "/signup": {
+      "^/(signup|login|logout|dashboard|orders|robots|admin|mailbox|track)": {
         target: "http://localhost:8080",
         changeOrigin: true,
-      },
-      "/login": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/logout": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/dashboard": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
+        secure: false,
       },
       "/ws": {
         target: "ws://127.0.0.1:8080",
